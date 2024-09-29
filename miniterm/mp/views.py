@@ -174,3 +174,26 @@ def controldevice(request):
             'status': '200',
             "message": deiviceName + " 已成功" + ("开启" if status == 1 else "关闭")
         })
+
+
+
+def gethumandtemp(request):
+    if request.method == 'POST':
+        temperature = request.POST['temperature']
+        humidity = request.POST['humidity']
+    
+    time = datetime.now()
+    formated_time = time.strftime('%H:%M')
+
+    TempAndHum.objects.create(temperature=temperature, humidity=humidity, time=formated_time)
+
+def getcamera(request):
+    
+    image = request.FILES['image']
+    if isFace(image):
+        
+        #TODO: 人脸识别
+        #识别成功后，将识别结果存入数据库
+        pass
+    else:
+        return JsonResponse({'status': '400', 'message': '上传失败，请上传人脸照片'})

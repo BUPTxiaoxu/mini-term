@@ -10,7 +10,9 @@ urlpatterns = [
     path('/log/temp', views.logtemphum),
     path('/log/face', views.logface),
     path('/log/face/show', views.showface),
-    path('control/face/add', views.addface),
-    path('control/face/delete', views.deleteface),
-    path('control/device', views.controldevice),
+    path('/control/face/add', views.addface),
+    path('/control/face/delete', views.deleteface),
+    path('/control/device', views.controldevice),
+    path('/hardware/temp', views.gethumandtemp),
+    path('/hardware/camera', views.getcamera),
 ]
