@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="ctrl-sys-style.css">
+    <title>Control System</title>
+</head>
+<body>
+    <div class="container">
+        <div class="list-container">
+            <button id="room-info-btn">Room Information</button><br>
+            <button id="control-system-btn">Control System</button><br>
+            <button id="user-management-btn">User Management</button><br>
+        </div>
+        <div class="main-container">
+            <h1 class="title">Control System</h1><br>
+            <div class="Face-Recognition-container">
+                <h2>Face Recognition</h2><br>
+                <img id="face-img" alt="Loading..."><br>
+                <p id="face-name">undefined face-name</p><br>
+                <div class="btn-container">
+                    <button id="add-face-btn" class="add-face-container">
+                        <span>Add Face</span>
+                    </button>
+                    <button id="remove-face-btn" class="remove-face-container">
+                        <span>Remove Face</span>
+                    </button>
+                </div>
+            </div>
+            <div class="control-list">
+               <h2>Control List</h2><br>
+               <ul id="control-list">
+                   <li>Light</li>
+                   <li>Fan</li>
+                   <li>Temperature</li>
+                   <li>Humidity</li>
+                   <li>Time</li>
+               </ul>
+           </div>
+           <div class="device-control">
+               <h2>Device Control</h2>
+               <br>
+               <div class="btn-container">
+                    <button id="light-on-btn">Light ON</button><br>
+                    <button id="light-off-btn">Light OFF</button><br>
+                    <button id="fan-on-btn">Fan ON</button><br>
+                    <button id="fan-off-btn">Fan OFF</button><br>
+                    <div class="undefined">to delete</div>
+               </div>
+               <div class="device status container">
+                   <h3>Device Status</h3><br>
+                   <p id="light-status">undefined light-status on/off</p><br>
+                   <p id="fan-status">undefined fan-status on/off</p><br>
+               </div>    
+           </div>
+           <div class="camera-info">
+               <h2>Camera Information</h2><br>
+               <p id="camera-status">undefined camera-status</p>
+               <p id="name">undefined name</p>
+           </div>
+        </div>
+    </div>
+    <script src="ctrl-sys.js"></script>
+</body>
+</html>

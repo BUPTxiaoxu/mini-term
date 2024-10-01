@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="user-management-style.css">
+    <title>User Management</title>
+</head>
+<body>
+    <div class="container">
+        <div class="list-container">
+            <button id="room-info-btn">Room Information</button><br>
+            <button id="control-system-btn">Control System</button><br>
+            <button id="user-management-btn">User Management</button><br>
+        </div>
+        <div class="info-container">
+            <h1 class="title">User Management</h1><br>
+            
+            <div class="user-list-container">
+                <h2>User List</h2><br>
+                <table id="user-list">
+                    <thead> 
+                        <tr> 
+                            <th>Username</th> 
+                            <th>Password</th> 
+                            <th>Role</th> 
+                            <th>AccessLevel</th> 
+                            <th>AuthorizationDate</th>                     
+                        </tr> 
+                    </thead> 
+                    <tbody> 
+                    </tbody> 
+                </table>
+            </div>
+            <button id="add-user-btn" class="add-user-container">
+                <span>Add User</span>
+            </button>
+            <button id="edit-user-btn" class="edit-user-container">
+                <span>Edit User</span>
+            </button>
+            <button id="remove-user-btn" class="remove-user-container">
+                <span>Remove User</span>
+            </button>
+            <div class="desc">This is the user management page. Here, you can add, remove, and edit user accounts.</div><br>
+            <h2 >The current time is:  <div><span id="time">00:00</span></div>  </h2>
+        </div>
+    </div>
+    <script src="user-management.js"></script>
+</body>
+</html>
