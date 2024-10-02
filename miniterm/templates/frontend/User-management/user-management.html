@@ -16,33 +16,44 @@
         <div class="info-container">
             <h1 class="title">User Management</h1><br>
             
-            <div class="user-list-container">
+            <div class="user-list-container">                  
+                
                 <h2 style="text-align: center;">User List</h2><br>
-                <table id="user-list">
-                    <thead> 
-                        <tr> 
-                            <th>Username</th> 
-                            <th>Password</th> 
-                            <th>Role</th> 
-                            <th>AccessLevel</th> 
-                            <th>AuthorizationDate</th>
-                            <th>Action</th>                     
-                        </tr> 
-                    </thead> 
-                    <tbody> 
-                    </tbody> 
-                </table>
+                <div class="table-container">
+                    <table id="user-list">
+                        <thead> 
+                            <tr> 
+                                <th>Username</th> 
+                                <th>Password</th> 
+                                <th>Role</th> 
+                                <th>AccessLevel</th> 
+                                <th>AuthorizationDate</th>
+                                <th>Action</th>                     
+                            </tr> 
+                            <tr> 
+                                <td>admin</td> 
+                                <td>admin123</td> 
+                                <td>Admin</td> 
+                                <td>Full Access</td> 
+                                <td>2021-01-01</td>
+                                <td><button class="edit-user-btn">Edit</button> <button class="remove-user-btn">Remove</button></td>                     
+                            </tr> 
+                        </thead> 
+                        <tbody> 
+                        </tbody> 
+                    </table>
+                </div>    
             </div>
             <div class="button-container">
                 <button id="add-user-btn" class="add-user-container">
                     <span>Add User</span>
                 </button>
-                <button id="edit-user-btn" class="edit-user-container">
+                <!-- <button id="edit-user-btn" class="edit-user-container">
                     <span>Edit User</span>
                 </button>
                 <button id="remove-user-btn" class="remove-user-container">
                     <span>Remove User</span>
-                </button>
+                </button> -->
             </div>
             
             <div class="desc">This is the user management page. Here, you can add, remove, and edit user accounts.</div><br>

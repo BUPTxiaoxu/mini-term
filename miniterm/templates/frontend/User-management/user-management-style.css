@@ -63,8 +63,12 @@ body{
 }
 
 .info-container {
-    position: relative;
-    z-index: 1;
+    /* position: relative; */
+    /* z-index: 1; */
+    /* display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; */
     background: #fff;
     padding: 30px;
     border-radius: 4px;
@@ -90,13 +94,22 @@ p {
     
     unicode-bidi: isolate;
 }
-.info-container table {
-    list-style: none;
-    display: flex;
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 20px;
+}
+
+th, td {
     text-align: center;
-    margin-left: -20px;
-    margin-right: 20px;
-    padding-inline-start: 40px;
+    padding: 12px;
+    border: 1px solid black;
+}
+
+.info-container h2{
+    font-weight: 600;
+    font-size: 26px;
+    font-family: Tahoma;
 }
 
 .info-container button  {
@@ -105,17 +118,33 @@ p {
     flex: 1;
     background: #fffbf0;
     border-radius: 4px;
-    margin-left: 20px;
-    padding: 20px;
+    cursor: pointer;
+    padding: 10px;
     font-weight: bold;
     text-align: center;
 }
+button:hover{
+    background-color:#eae0cabe;
+    color: black;
+}
+/* button:active, */
 
+.button-container{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+.button-container button{
+    margin-top: 10px;
+    margin-right: 50px;
+    margin-left: 50px;
+}
 .user-list-container{
     width: 100%;
     background-color: #ffffffd2;    
     padding: 20px;
     display: flex;
+    flex-direction: column;
     border-radius: 0 8px 8px 0;
     text-align: center;
 }
