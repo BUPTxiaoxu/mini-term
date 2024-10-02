@@ -1,25 +1,25 @@
 // This is the code for user management system.
 //新增
 const addBtn = document.getElementById("add-user-btn");
-Document.getElementById("add-user-btn").addEventListener("click", addRow);
+document.getElementById("add-user-btn").addEventListener("click", addRow);
 function addRow() {
     var table = document.getElementById("user-list");
     //获取插入的位置
   var rowCount = table.rows.length;
   var newRow = table.insertRow(rowCount);
-  var nameCell = row.insertCell(0);
-  var passwordCell = row.insertCell(1);
-  var roleCell = row.insertCell(2);
-  var accessLevelCell = row.insertCell(3);
-  var authorizationCell = row.insertCell(4);
-  var actionCell = row.insertCell(5);
+  var nameCell = newRow.insertCell(0);
+  var passwordCell = newRow.insertCell(1);
+  var roleCell = newRow.insertCell(2);
+  var accessLevelCell = newRow.insertCell(3);
+  var authorizationCell = newRow.insertCell(4);
+  var actionCell = newRow.insertCell(5);
   
-  
-nameCell.innerHTML = "undefined";
-passwordCell.innerHTML = "undefined";
-roleCell.innerHTML = "undefined";
-accessLevelCell.innerHTML = "undefined";
-authorizationCell.innerHTML = "undefined";
+    nameCell.innerHTML = "undefined";
+    passwordCell.innerHTML = "undefined";
+    roleCell.innerHTML = "undefined";
+    accessLevelCell.innerHTML = "undefined";
+    authorizationCell.innerHTML = "undefined";
+    actionCell.innerHTML = "<button onclick='editRow(this)'>Edit</button><button onclick='deleteRow(this)'>Remove</button>";
 }
 
 //編輯

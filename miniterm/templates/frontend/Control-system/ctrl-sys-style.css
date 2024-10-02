@@ -5,23 +5,43 @@
 }
 
 body{
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+   /* justify-content: center;
+    align-items: center; */
+    display: flex;
+    flex-direction: column;
+    height: 100vh;/* 让页面高度充满整个屏幕 */
     margin: 0;
-    background-color: #f8b20ff1;
+    padding: 0;
+    background-color:#f2f2f2;
     font-family: Arial, sans-serif;
 } 
+header {
+    background-color: #ffc107;
+    color: #333;
+    padding: 1rem;
+    width: 100%; /* 确保头部宽度为100% */
+    position: fixed; /* 固定在顶部 */
+    top: 0; /* 置顶 */
+    left: 0; /* 左对齐 */
+    z-index: 1000; /* 确保在其他元素之上 */
+  }
+
+  header img {
+    max-width: 200px;
+    height: auto;
+  }
+
 
 .container{ 
     display: flex;
-    width: 80%;
-    height: 100vh; 
+    /* width: 80%; */
+    flex-grow: 1;/*填充剩余空间*/
+    margin-top: 80px;
     /* background-color: white;
     border-radius: 8px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); */
 }
-.list-container{
+/* .list-container{
     width: 220px;
     background-color: #2f2f3ed2;
     padding: 20px;
@@ -42,8 +62,32 @@ body{
     cursor: pointer;
     margin-bottom: 15spx;
     transition: background-color 0.3s;
-}
-#control-system-btn{
+} */
+.sidebar {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    width: 200px; /* 固定宽度 */
+    display: flex;
+    flex-direction: column; /* 垂直排列 */
+  }
+
+  .sidebar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .sidebar li {
+    margin-bottom: 1rem;
+  }
+
+  .sidebar a {
+    color: #fff;
+    text-decoration: none;
+  }
+
+/* #control-system-btn{
     background-color: #f8b20ff1;
     color: rgb(62, 58, 58);
     padding: 12px 20px;
@@ -54,23 +98,25 @@ body{
     cursor: pointer;
     margin-bottom: 15spx;
     transition: background-color 0.3s;   
-}
-
+} */
+/* 
 .list-container button.active,
 
 .list-container button:hover{
     background-color: #eae0cabe;
-}
+} */
 
 .main-container {
-    position: relative;
+    /* position: relative;
     display: block;
-    
-    z-index: 1;
-    background: #fff;
     padding: 30px;
     border-radius: 4px;
     gap: 20px;
+    z-index: 1; */
+    flex-grow: 1;
+    background: #fff;
+    padding: 1rem;
+    
 }
 
 .main-container h1 {
