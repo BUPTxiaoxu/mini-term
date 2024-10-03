@@ -1,0 +1,238 @@
+*{
+    box-sizing: border-box;
+    margin: 0; 
+    padding: 0; 
+}
+
+body{
+   /* justify-content: center;
+    align-items: center; */
+    display: flex;
+    flex-direction: column;
+    height: 100vh;/* 让页面高度充满整个屏幕 */
+    margin: 0;
+    padding: 0;
+    background-color:#f2f2f2;
+    font-family: Arial, sans-serif;
+} 
+header {
+    background-color: #ffc107;
+    color: #333;
+    padding: 1rem;
+    width: 100%; /* 确保头部宽度为100% */
+    position: fixed; /* 固定在顶部 */
+    top: 0; /* 置顶 */
+    left: 0; /* 左对齐 */
+    z-index: 1000; /* 确保在其他元素之上 */
+  }
+
+  header img {
+    max-width: 200px;
+    height: auto;
+  }
+
+
+.container{ 
+    display: flex;
+    /* width: 80%; */
+    flex-grow: 1;/*填充剩余空间*/
+    margin-top: 80px;
+    /* background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); */
+}
+/* .list-container{
+    width: 220px;
+    background-color: #2f2f3ed2;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px 0 0 8px;
+}
+
+.list-container button{
+    display: block;
+    background-color: #dcdad4;
+    color: rgb(62, 58, 58);
+    padding: 12px 20px;
+    width: 100%;
+    font-weight: bold   ;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 15spx;
+    transition: background-color 0.3s;
+} */
+.sidebar {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    width: 200px; /* 固定宽度 */
+    display: flex;
+    flex-direction: column; /* 垂直排列 */
+  }
+
+  .sidebar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .sidebar li {
+    margin-bottom: 1rem;
+  }
+
+  .sidebar a {
+    color: #fff;
+    text-decoration: none;
+  }
+
+/* #control-system-btn{
+    background-color: #f8b20ff1;
+    color: rgb(62, 58, 58);
+    padding: 12px 20px;
+    width: 100%;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 15spx;
+    transition: background-color 0.3s;   
+} */
+/* 
+.list-container button.active,
+
+.list-container button:hover{
+    background-color: #eae0cabe;
+} */
+
+.main-container {
+    /* position: relative;
+    display: block;
+    padding: 30px;
+    border-radius: 4px;
+    gap: 20px;
+    z-index: 1; */
+    flex-grow: 1;
+    background: #fff;
+    padding: 1rem;
+    
+}
+
+.main-container h1 {
+    font-weight: 600;
+    font-size: 40px;
+    font-family: Tahoma;
+    color: #333;
+    letter-spacing: -.2px;
+    padding: 5px 0 0;
+    margin-bottom: 18px;
+    margin-top: 30px;
+    text-align: center;
+}
+p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 60px;
+    margin-inline-end: 60px;
+    
+    unicode-bidi: isolate;
+}
+
+.main-container button  {
+
+    flex: 1;
+    flex-direction: row;
+    background: #fffbf0;
+    width: 100px;    
+    height: 80px;
+    border-radius: 4px;
+    margin-left: 20px;
+    padding: 20px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+}
+
+.main-container button.active,
+
+.main-container button:hover{
+    background-color: #eae0cabe;
+}
+
+.Face-Recognition-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.control-list{
+    margin-bottom: 20px;
+}
+
+.control-list ul {
+    list-style: none;
+    display: flex;
+    text-align: center;
+    margin-left: -20px;
+    margin-right: 20px;
+    padding-inline-start: 40px;
+}
+
+.control-list li  {
+    /* -webkit-box-flex: 1;
+    -ms-flex: 1; */
+    flex: 1;
+    background: #fffbf0;
+    border-radius: 4px;
+    margin-left: 20px;
+    padding: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.control-list li span{
+    font-size: 13px;
+    color: #333;
+    margin-top: 10px;
+}
+
+.device-control{
+    width: 100%;
+    background-color: #ffffffd2;    
+    padding: 20px;
+    display: block;
+    border-radius: 0 8px 8px 0;
+    text-align: center;
+    margin-bottom:20px;
+}
+.btn-container{
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+} 
+.desc{
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 1.5;
+    color: #1a128e;
+    margin-top: 100px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-family: helvetica, sans-serif;
+}
+
+h2{
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 1.5;
+    color: #1a128e;
+    text-align: center;
+    font-family: helvetica, sans-serif;
+}

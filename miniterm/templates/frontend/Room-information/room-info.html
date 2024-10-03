@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="room-info-style.css">
+    <title>Room Information</title>
+</head>
+<body>
+    <div class="container">
+        <div class="list-container">
+            <button id="room-info-btn">Room Information</button><br>
+            <button id="control-system-btn">Control System</button><br>
+            <button id="user-management-btn">User Management</button><br>
+        </div>
+        <div class="info-container">
+            <h1 class="title">Room Information</h1><br>
+            <ul>
+                
+                <li>
+                    <p class="tit" id="temperature">Temperature:</p>
+                    <p class="value" id="temp-value"></p>
+                </li>
+                <li>
+                    <p class ="tit" id="humidity">Humidity:</p>
+                    <p class="value" id="hum-value"></p>
+                </li>  
+                
+                <li>
+                    <p class ="tit" id="face recognition">Face recognition:</p>
+                    <p class="value" id="face-name"></p>
+                    <p class="value" id= "result"></p>
+                    <p class="value" id= "face-time"></p>
+                </li> 
+                <li>
+                    <p class ="tit" id="event log">Event log:</p>
+                    <p class="value" id="event-value"></p>
+                </li> 
+                <!-- <div class="box" id="temperature">
+                    <label>Temperature:</label>
+                </div>
+                <div class="box" id="humidity">
+                    <label>Humidity:</label>
+                </div>
+                <div class="box" id="face recognition">
+                    <label>Face Recognition:</label>
+                </div>
+                <div class="box" id="event log">
+                    <label>Event Log:</label>
+                </div> -->
+            </ul>
+            <div class="desc">This is the room information page. Here, you can view the current temperature, humidity, and other important information about the room.</div><br>
+            <h2 >The current time is:  <div><span id="time">00:00</span></div>  </h2>
+        </div>
+    </div>
+    <script src="room-info.js"></script>
+</body>
+</html>
