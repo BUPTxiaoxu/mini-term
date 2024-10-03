@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Homepage</title>
+  <style>
+   body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f2f2f2;
+      display: flex;
+      flex-direction: column;
+      height: 100vh; /* 让页面高度占满视口 */
+    }
+
+    header {
+      background-color: #ffc107;
+      color: #333;
+      padding: 1rem;
+      width: 100%; /* 确保头部宽度为100% */
+      position: fixed; /* 固定在顶部 */
+      top: 0; /* 置顶 */
+      left: 0; /* 左对齐 */
+      z-index: 1000; /* 确保在其他元素之上 */
+    }
+
+    header img {
+      max-width: 200px;
+      height: auto;
+    }
+
+    .container {
+      display: flex;
+      flex-grow: 1; /* 填充剩余空间 */
+      margin-top: 80px; /* 给内容区域留出顶部空间，避免被header覆盖 */
+    }
+
+    .sidebar {
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      width: 200px; /* 固定宽度 */
+      display: flex;
+      flex-direction: column; /* 垂直排列 */
+    }
+
+    .sidebar ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .sidebar li {
+      margin-bottom: 1rem;
+    }
+
+    .sidebar a {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .content {
+      flex-grow: 1; /* 填充剩余空间 */
+      padding: 1rem;
+      background-color: #fff; /* 设置背景颜色 */
+    }
+
+    h2 {
+      margin-top: 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f9f9f9;
+    }
+
+    .log-section {
+      margin-bottom: 40px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="https://via.placeholder.com/200x50" alt="Logo">
+  </header>
+
+  <div class="container">
+    <div class="sidebar">
+      <ul>
+        <li><a href="#">用户管理</a></li>   
+        <li><a href="#">控制系统</a></li>
+        <li><a href="#">房间信息</a></li>
+      </ul>
+    </div>
+    <div class="content">
+      <div class="log-section">
+        <h2>温湿度日志</h2>
+        <table id="temperature-humidity-log">
+          <thead>
+            <tr>
+              <th>时间</th>
+              <th>温度 (°C)</th>
+              <th>湿度 (%)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for log in tem_logs %}
+              <tr>
+                <td>{{ log.time }}</td>
+                <td>{{ log.temperature }}</td>
+                <td>{{ log.humidity }}</td>
+              </tr>
+              {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="log-section">
+        <h2>人脸识别日志</h2>
+        <table id="face-recognition-log">
+          <thead>
+            <tr>
+              <th>姓名</th>
+              <th>日期</th>
+              <th>识别结果</th>
+            </tr>
+          </thead>
+          <tbody>
+            {%  for log in face_logs %}
+              <tr>
+                <td>{{ log.name }}</td>
+                <td>{{ log.time }}</td>
+                <td>{{ log.result }}</td>
+              </tr>
+            {%  endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+</body>
+</html>

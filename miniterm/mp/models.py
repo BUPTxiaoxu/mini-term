@@ -34,11 +34,6 @@ class EventLogs(models.Model):
     description = models.TextField(max_length=200)
     device_id = models.ForeignKey(DeviceStatus, on_delete=models.DO_NOTHING,to_field='deviceID')
 
-class FaceRecognitionLogs(models.Model):
-    recongnitionid = models.IntegerField(primary_key=True)
-    userid = models.ForeignKey(User, on_delete=models.DO_NOTHING)
-    time = models.DateTimeField()
-    result = models.CharField(max_length=50)
 
 class TempAndHum(models.Model):
     temperature = models.IntegerField()
@@ -51,3 +46,8 @@ class AccessPeople(models.Model):
     name = models.TextField(max_length=100)
     imageurl = models.CharField(max_length=100)
     
+class FaceRecognitionLogs(models.Model):
+    recongnitionid = models.AutoField(primary_key=True)
+    userid = models.ForeignKey(AccessPeople, on_delete=models.DO_NOTHING)
+    time = models.DateTimeField()
+    result = models.CharField(max_length=50)

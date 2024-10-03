@@ -21,9 +21,12 @@ def user_login(request):
         
         if user is not None:
             login(request, user)
-            return JsonResponse({'status': '200', 'message': '登录成功'})
+            #return JsonResponse({'status': '200', 'message': '登录成功'})
+            return render(request, 'user/list.html')
         else:
-            return JsonResponse({'status': '400', 'message': '用户名或密码错误'})
+            #return JsonResponse({'status': '400', 'message': '用户名或密码错误'})
+            return render(request, 'user/login.html', {'error_message': '用户名或密码错误'})
+    return render(request, 'user/login.html')
 
 
 
@@ -83,10 +86,11 @@ def UserDelete(request):
 
 
 
-@login_required
-def logtemphum(request):
+#@login_required
+def logtemphum_and_face(request):
     
     all_info = TempAndHum.objects.all()
+
     sensor_data = [
         {
             "temperature": record.temperature,  
@@ -96,16 +100,10 @@ def logtemphum(request):
         for record in all_info
     ]
     
-    return JsonResponse({'status': '200', 'message': '获取成功', 'data': sensor_data})
-
-
-@login_required
-def logface(request):
-    
     all_info = FaceRecognitionLogs.objects.all()
     logs = []
     for record in all_info:
-        userid = record.userid
+        userid = record.userid.id
         name = AccessPeople.objects.get(id = userid).name
         time = record.time
         result = record.result
@@ -114,7 +112,22 @@ def logface(request):
             "time": time,
             "result": result
         })
-    return JsonResponse({'status': '200', 'message': '', 'data': logs})
+    
+    
+    all_info = FaceRecognitionLogs.objects.all()
+    logs = []
+    for record in all_info:
+        userid = record.userid.id
+        name = AccessPeople.objects.get(id = userid).name
+        time = record.time
+        result = record.result
+        logs.append({
+            "name": name,
+            "time": time,
+            "result": result
+        })
+    #return JsonResponse({'status': '200', 'message': '', 'data': logs})
+    return render(request, 'logs/log.html', {'face_logs': logs, 'tem_logs': sensor_data})
 
 
 
@@ -202,18 +215,24 @@ def gethumandtemp(request):
         temperature = request.POST['temperature']
         humidity = request.POST['humidity']
     
-    time = datetime.now()
-    formated_time = time.strftime('%H:%M')
+    format_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
-    TempAndHum.objects.create(temperature=temperature, humidity=humidity, time=formated_time)
+    TempAndHum.objects.create(temperature=temperature, humidity=humidity, time=format_time)
+
+    return JsonResponse({'status': '200', 'message': '上传成功'})
+
 
 def getcamera(request):
     
-    image = request.FILES['image']
-    if isFace(image):
+    #image = request.FILES['image']
+    # if isFace(image):
         
-        #TODO: 人脸识别
-        #识别成功后，将识别结果存入数据库
-        pass
-    else:
-        return JsonResponse({'status': '400', 'message': '上传失败，请上传人脸照片'})
+    #     #TODO: 人脸识别
+    #     #识别成功后，将识别结果存入数据库
+    #     pass
+    # else:
+    format_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    accesspeople = AccessPeople.objects.get(id = 3)
+    FaceRecognitionLogs.objects.create(userid = accesspeople, time = format_time, result='success')
+
+    return JsonResponse({'status': '200', 'message': '上传成功'})
