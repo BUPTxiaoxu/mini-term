@@ -2,17 +2,16 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
-class AuthorizedPersonnel(AbstractUser):
-    userID = models.IntegerField(primary_key=True)
+class User(AbstractUser):
     role = models.CharField(max_length=100)
     accesslevel = models.IntegerField()
-    contaceinfo = models.CharField(max_length=100)
-    authorization = models.DateField()
+    contactinfo = models.CharField(max_length=100)
+    authorizationdate = models.DateField()
 
 
 class AccessLoggs(models.Model):
     logID = models.IntegerField(primary_key=True)
-    userID = models.ForeignKey(AuthorizedPersonnel, on_delete=models.DO_NOTHING,to_field='userID')
+    userID = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     accesstime = models.DateTimeField()
     status = models.IntegerField()
 
@@ -37,7 +36,7 @@ class EventLogs(models.Model):
 
 class FaceRecognitionLogs(models.Model):
     recongnitionid = models.IntegerField(primary_key=True)
-    userid = models.ForeignKey(AuthorizedPersonnel, on_delete=models.DO_NOTHING,to_field='userID')
+    userid = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     time = models.DateTimeField()
     result = models.CharField(max_length=50)
 
@@ -48,7 +47,7 @@ class TempAndHum(models.Model):
 
 
 class AccessPeople(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     name = models.TextField(max_length=100)
     imageurl = models.CharField(max_length=100)
     

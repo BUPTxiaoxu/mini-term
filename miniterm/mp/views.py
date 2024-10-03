@@ -9,11 +9,11 @@ from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.core.files.storage import FileSystemStorage
+from django.contrib.auth import get_user_model
 
+User = get_user_model()
 
-
-
-def login(request):
+def user_login(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -37,12 +37,9 @@ def register(request):
         return JsonResponse({'status': '400', 'message': '缺少信息'})
     current_time = datetime.now()
     formated_time = current_time.strftime('%Y-%m-%d')
-    user = User.objects.create_user(username=username, password=password)
-    user.role = 'Admin'
-    user.accesslevel = 0
-    user.contactinfo = contactinfo
-    user.AuthorizationDate = formated_time
-    user.save()
+    user = User.objects.create_user(username=username, password=password,
+                                    role = 'Admin', accesslevel = 0, contactinfo = contactinfo,
+                                    authorizationdate = formated_time)
 
     return JsonResponse({'status': '200', 'message': '注册成功'})
 
@@ -59,14 +56,20 @@ def UserAdd(request):
     current_time = datetime.now()
     formated_time = current_time.strftime('%Y-%m-%d')
     
-    user = User.objects.create_user(username=username, password=password)
-    user.role = role
-    user.accesslevel = accesslevel
-    user.contactinfo = contactinfo
-    user.AuthorizationDate = formated_time
-    user.save()
+    user = User.objects.create_user(username=username, password=password, role = role, 
+                                    accesslevel = accesslevel, contactinfo = contactinfo, 
+                                    authorizationdate = formated_time)
+    data = {
+        'id': user.id,
+        'username': username,
+        'password': password,
+        'role': role,
+        'accesslevel': accesslevel,
+        'contactinfo': contactinfo,
+        'authorizationdate': formated_time
+    }
 
-    return JsonResponse({'status': '200', 'message': '添加成功'})
+    return JsonResponse({'status': '200', 'message': '添加成功', 'data': data})
 
 @login_required
 def UserDelete(request):
@@ -76,6 +79,7 @@ def UserDelete(request):
         return JsonResponse({'status': '400', 'message': '缺少信息'})
     user = User.objects.get(id=id)
     user.delete()
+    return JsonResponse({'status': '200', 'message': '删除成功'})
 
 
 
@@ -132,22 +136,26 @@ def showface(request):
 @login_required
 def addface(request):
     if request.method == 'POST':
-        name = request.POST['name']
+        
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
+            name = form.cleaned_data['name']
             face_image = request.FILES['face_image']
             fs = FileSystemStorage()
             filename = fs.save(name, face_image)
             file_url = fs.url(filename)
-            AccessPeople.objects.create(name=name, face_image=file_url)
+            accesspeople = AccessPeople.objects.create(name=name, imageurl=file_url)
             
             return JsonResponse({'status': '200',
                                 'message': '上传成功',
                                 'data': {
+                                    'id': accesspeople.id,
                                     'name': name,
                                     'face_url': file_url
                                 }
                                 })
+        else:
+            return JsonResponse({'status': '400', 'message': '上传失败，请检查格式'})
         
 @login_required
 def deleteface(request):
@@ -174,6 +182,18 @@ def controldevice(request):
             'status': '200',
             "message": deiviceName + " 已成功" + ("开启" if status == 1 else "关闭")
         })
+
+@login_required
+def getdevice(request):
+    all_info = DeviceStatus.objects.all()
+    data = [
+        {
+            "id": record.id,
+            "DeviceName": record.DeviceName,
+        }
+        for record in all_info
+    ]
+    return JsonResponse({'status': '200', 'message': '', 'data': data})
 
 
 
