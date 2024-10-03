@@ -3,7 +3,7 @@ from datetime import datetime
 from .models import *  
 from .forms import UploadFileForm
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.http import JsonResponse
 from django.contrib.auth.models import User
@@ -29,15 +29,19 @@ def user_login(request):
     return render(request, 'user/login.html')
 
 
-
+def register_view(request):
+    return render(request, 'user/register/register.html')
 
 def register(request):
     if request.method == 'POST':
         username = request.POST['username']
+        print
         password = request.POST['password']
-        contactinfo = request.POST['contactinfo']
+        contactinfo = request.POST['email']
     if not (username and password and contactinfo):
         return JsonResponse({'status': '400', 'message': '缺少信息'})
+    if User.objects.filter(username = username).exists():
+        return JsonResponse({'status': '400', 'message': '用户名已存在'})
     current_time = datetime.now()
     formated_time = current_time.strftime('%Y-%m-%d')
     user = User.objects.create_user(username=username, password=password,
@@ -45,6 +49,7 @@ def register(request):
                                     authorizationdate = formated_time)
 
     return JsonResponse({'status': '200', 'message': '注册成功'})
+
 
 
 @login_required
