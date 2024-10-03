@@ -60,6 +60,7 @@ function deleteRow(btn) {
     });
 }
 
+
 //編輯
 function editRow(btn) {
     var row = btn.parentNode.parentNode;
@@ -76,7 +77,6 @@ function editRow(btn) {
     authorizationCell.innerHTML = "<input type='text' value='" + authorizationCell.innerHTML + "'>";
     actionCell.innerHTML = "<button onclick='saveRow(this)'>Save</button><button onclick='cancelEdit(this)'>Cancel</button>";
 }
-
 function saveRow(btn) {
     var row = btn.parentNode.parentNode;
     var nameCell = row.cells[0];
@@ -91,9 +91,9 @@ function saveRow(btn) {
     accessLevelCell.innerHTML = accessLevelCell.getElementsByTagName("input")[0].value;
     authorizationCell.innerHTML = authorizationCell.getElementsByTagName("input")[0].value;
     actionCell.innerHTML = "<button onclick='editRow(this)'>Edit</button><button onclick='deleteRow(this)'>Remove</button>";
-
+    // alert("Saved successfully");
     //save to database here 
-    fetch('/user/add', {
+    fetch('/user/add', {//接口文档没写，姑且用add接口
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',

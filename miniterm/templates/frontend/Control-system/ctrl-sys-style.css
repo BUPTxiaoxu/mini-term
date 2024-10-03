@@ -145,6 +145,8 @@ p {
     flex: 1;
     flex-direction: row;
     background: #fffbf0;
+    width: 100px;    
+    height: 80px;
     border-radius: 4px;
     margin-left: 20px;
     padding: 20px;
@@ -160,9 +162,10 @@ p {
 .main-container button:hover{
     background-color: #eae0cabe;
 }
-.Face-Recognition-container{
-    display: block;
 
+.Face-Recognition-container{
+    display: flex;
+    flex-direction: column;
     align-items: center;
     margin-bottom: 20px;
 }
@@ -191,6 +194,13 @@ p {
     font-weight: bold;
     text-align: center;
 }
+
+.control-list li span{
+    font-size: 13px;
+    color: #333;
+    margin-top: 10px;
+}
+
 .device-control{
     width: 100%;
     background-color: #ffffffd2;    

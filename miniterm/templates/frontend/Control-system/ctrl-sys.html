@@ -28,8 +28,11 @@
             <h1 class="title">Control System</h1><br>
             <div class="Face-Recognition-container">
                 <h2>Face Recognition</h2><br>
-                <img id="face-img" alt="Loading..."><br>
-                <p id="face-name">undefined face-name</p><br>
+                <div class="img-container">
+                    <img id="face-img" alt="Loading..." src="IMG_3473.JPG" width="300" height="150"><br>
+                    <p id="face-name">undefined face-name</p><br>
+                </div>
+               
                 <div class="btn-container">
                     <button id="add-face-btn" class="add-face-container">
                         <span>Add Face</span>
@@ -42,11 +45,21 @@
             <div class="control-list">
                <h2>Control List</h2><br>
                <ul id="control-list">
-                   <li>Light</li>
-                   <li>Fan</li>
-                   <li>Temperature</li>
-                   <li>Humidity</li>
-                   <li>Time</li>
+                   <li>Light<br>
+                    <span id="light-status">OFF</span>
+                   </li>
+                   <li>Fan<br>
+                    <span id="fan-status">OFF</span>
+                   </li>
+                   <li>Temperature<br>
+                    <span id="temperature-status">undefined</span>
+                   </li>
+                   <li>Humidity<br>
+                    <span id="humidity-status">undefined</span>
+                   </li>
+                   <li>Time<br>
+                    <span id="time-status">undefined</span>
+                   </li>
                </ul>
            </div>
            <div class="device-control">
@@ -58,11 +71,11 @@
                     <button id="fan-on-btn">Fan ON</button><br>
                     <button id="fan-off-btn">Fan OFF</button><br>
                </div>
-               <div class="device status container">
+               <!-- <div class="device status container">
                    <h3>Device Status</h3><br>
                    <p id="light-status">undefined light-status on/off</p><br>
                    <p id="fan-status">undefined fan-status on/off</p><br>
-               </div>    
+               </div>     -->
            </div>
            <div class="camera-info">
                <h2>Camera Information</h2><br>
