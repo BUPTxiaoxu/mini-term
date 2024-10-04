@@ -1,4 +1,7 @@
 from datetime import datetime
+from PIL import Image
+import io
+
 
 from .models import *  
 from .forms import UploadFileForm
@@ -10,6 +13,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.core.files.storage import FileSystemStorage
 from django.contrib.auth import get_user_model
+from django.core.files.base import ContentFile
 
 User = get_user_model()
 
@@ -161,11 +165,20 @@ def addface(request):
         if form.is_valid():
             name = form.cleaned_data['name']
             face_image = request.FILES['face_image']
-            fs = FileSystemStorage()
-            filename = fs.save(name, face_image)
-            file_url = fs.url(filename)
-            accesspeople = AccessPeople.objects.create(name=name, imageurl=file_url)
+
+            image = Image.open(face_image)
+            image = image.convert('RGB')  
             
+            
+            image_io = io.BytesIO()
+            image.save(image_io, format='JPEG')  
+            image_io.seek(0)  
+            
+            fs = FileSystemStorage()
+            filename = f"{name}.jpg"  
+            file_url = fs.save(filename, ContentFile(image_io.read()))  
+            
+            accesspeople = AccessPeople.objects.create(name=name, imageurl=fs.url(file_url))
             return JsonResponse({'status': '200',
                                 'message': '上传成功',
                                 'data': {
