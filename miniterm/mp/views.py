@@ -22,7 +22,7 @@ def user_login(request):
         if user is not None:
             login(request, user)
             #return JsonResponse({'status': '200', 'message': '登录成功'})
-            return render(request, 'user/list.html')
+            return render(request, 'face/show.html')
         else:
             #return JsonResponse({'status': '400', 'message': '用户名或密码错误'})
             return render(request, 'user/login.html', {'error_message': '用户名或密码错误'})
@@ -136,7 +136,7 @@ def logtemphum_and_face(request):
 
 
 
-@login_required
+#@login_required
 def showface(request):
     all_info = AccessPeople.objects.all()
 
@@ -144,14 +144,16 @@ def showface(request):
         {
             "id": record.id,
             "name": record.name,
+            "face_url": record.imageurl,
         }
         for record in all_info
     ]
-    return JsonResponse({'status': '200', 'message': '', 'data': data})
+    #return JsonResponse({'status': '200', 'message': '', 'data': data})
+    return render(request, 'face/show.html', {'datas': data})
 
 
 #增加人脸识别信息
-@login_required
+#@login_required
 def addface(request):
     if request.method == 'POST':
         
@@ -175,7 +177,7 @@ def addface(request):
         else:
             return JsonResponse({'status': '400', 'message': '上传失败，请检查格式'})
         
-@login_required
+#@login_required
 def deleteface(request):
     if request.method == 'POST':
         id = request.POST['id']
@@ -186,7 +188,7 @@ def deleteface(request):
         return JsonResponse({'status': '200', 'message': '删除成功'})
     
 
-@login_required
+#@login_required
 def controldevice(request):
     if request.method == 'POST':
         DeviceId = request.POST['DeviceId']
@@ -201,17 +203,19 @@ def controldevice(request):
             "message": deiviceName + " 已成功" + ("开启" if status == 1 else "关闭")
         })
 
-@login_required
+#@login_required
 def getdevice(request):
     all_info = DeviceStatus.objects.all()
     data = [
         {
-            "id": record.id,
-            "DeviceName": record.DeviceName,
+            "id": record.deviceID,
+            "DeviceName": record.deviceName,
         }
         for record in all_info
     ]
-    return JsonResponse({'status': '200', 'message': '', 'data': data})
+    #return JsonResponse({'status': '200', 'message': '', 'data': data})
+
+    return render(request, 'control/control.html', {'datas': data})
 
 
 

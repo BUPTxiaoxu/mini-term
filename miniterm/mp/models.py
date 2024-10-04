@@ -16,9 +16,9 @@ class AccessLoggs(models.Model):
     status = models.IntegerField()
 
 class DeviceStatus(models.Model):
-    deviceID = models.IntegerField(primary_key=True)
+    deviceID = models.AutoField(primary_key=True)
     deviceName = models.CharField(max_length=100)
-    status = models.CharField(max_length=50)
+    status = models.IntegerField(max_length=50)
     lastupdate = models.DateTimeField()
 
 class Sensor(models.Model):

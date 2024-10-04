@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Homepage</title>
+  <style>
+   body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f2f2f2;
+      display: flex;
+      flex-direction: column;
+      height: 100vh; /* 让页面高度占满视口 */
+    }
+
+    header {
+      background-color: #ffc107;
+      color: #333;
+      padding: 1rem;
+      width: 100%; /* 确保头部宽度为100% */
+      position: fixed; /* 固定在顶部 */
+      top: 0; /* 置顶 */
+      left: 0; /* 左对齐 */
+      z-index: 1000; /* 确保在其他元素之上 */
+    }
+
+    header img {
+      width: 100px;
+      height: 50px;
+    }
+
+    .container {
+      display: flex;
+      flex-grow: 1; /* 填充剩余空间 */
+      margin-top: 80px; /* 给内容区域留出顶部空间，避免被header覆盖 */
+    }
+
+    .sidebar {
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      width: 200px; /* 固定宽度 */
+      display: flex;
+      flex-direction: column; /* 垂直排列 */
+    }
+
+    .sidebar ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .sidebar li {
+      margin-bottom: 1rem;
+    }
+
+    .sidebar a {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .content {
+      flex-grow: 1; /* 填充剩余空间 */
+      padding: 1rem;
+      background-color: #fff; /* 设置背景颜色 */
+    }
+
+    h2 {
+      margin-top: 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f9f9f9;
+    }
+
+    .log-section {
+      margin-bottom: 40px;
+    }
+
+    .delete-btn {
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: red; /* 背景颜色 */
+            color: white;          /* 字体颜色 */
+            border: 1px solid darkred; /* 边框颜色 */
+            border-radius: 5px;   /* 边角圆滑 */
+            cursor: pointer;       /* 鼠标悬停时变为手型 */
+            text-align: center;    /* 文本居中 */
+            font-size: 14px;       /* 字体大小 */
+            transition: background-color 0.3s; /* 平滑过渡 */
+        }
+        .delete-btn:hover {
+            background-color: darkred; /* 悬停时改变背景颜色 */
+        }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="https://th.bing.com/th/id/OIP.idQ_TWQMOqLuugYYon4R8gAAAA?w=455&h=455&rs=1&pid=ImgDetMain" alt="Logo">
+  </header>
+
+  <div class="container">
+    <div class="sidebar">
+      <ul>
+        <li><a href="/control/face/show">用户管理</a></li>
+        <li><a href="/control/device/list">控制系统</a></li>
+        <li><a href="/log/faceandtemp">房间信息</a></li>
+      </ul>
+    </div>
+    <div class="content">
+      <div class="log-section">
+        <h2>人脸信息</h2>
+        <table id="temperature-humidity-log">
+          <thead>
+            <tr>
+              <th>id</th>
+              <th>姓名</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for data in datas %}
+              <tr>
+                <td>{{ data.id }}</td>
+                <td>{{ data.name }}</td>
+                <td>
+                    <span class="delete-btn" onclick="deleteEntry('{{ data.id }}')">删除</span>
+                </td>
+              </tr>
+              {% endfor %}
+          </tbody>
+        </table>
+        <div class="add-form">
+          <h3>添加人脸信息</h3>
+          <input type="text" id="name" placeholder="姓名" required>
+          <input type="file" id="face_image" accept="image/*" required>
+          <button class="add-btn" onclick="addFace()">添加</button>
+      </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    function deleteEntry(id) {
+    if (confirm('确定要删除此人吗？')) {
+        fetch('delete', {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}',
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams({ 'id': id })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === '200') {
+                location.reload();
+            } else {
+                alert(data.message);
+            }
+        })
+        .catch(error => {
+            console.error('错误:', error);
+        });
+    }
+}
+
+function addFace() {
+    const name = document.getElementById('name').value;
+    const face_image = document.getElementById('face_image').files[0];
+
+    if (name === '' || !face_image) {
+        alert('姓名和图片不能为空！');
+        return;
+        }
+
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('face_image', face_image);
+
+    fetch('add', {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': '{{ csrf_token }}',
+        },
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+                if (data.status === '200') {
+                    alert('上传成功');
+                    location.reload();  // 刷新页面
+                } else {
+                    alert(data.message);  
+                }
+            })
+            .catch(error => {
+                console.error('错误:', error);
+                alert('上传失败，请重试。');
+            });
+        }
+</script>
+</body>
+</html>

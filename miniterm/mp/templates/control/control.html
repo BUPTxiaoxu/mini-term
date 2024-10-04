@@ -9,10 +9,10 @@
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
-      background-color: #f2f2f2;
+      background-color: #f9f9f9;
       display: flex;
       flex-direction: column;
-      height: 100vh; /* 让页面高度占满视口 */
+      height: 100vh; 
     }
 
     header {
@@ -34,7 +34,7 @@
     .container {
       display: flex;
       flex-grow: 1; /* 填充剩余空间 */
-      margin-top: 80px; /* 给内容区域留出顶部空间，避免被header覆盖 */
+      margin-top: 80px; 
     }
 
     .sidebar {
@@ -59,24 +59,55 @@
     .sidebar a {
       color: #fff;
       text-decoration: none;
+      transition: color 0.3s; 
+    }
+
+    .sidebar a:hover {
+      color: #ffc107;
     }
 
     .content {
-      flex-grow: 1; /* 填充剩余空间 */
+      flex-grow: 1; 
       padding: 1rem;
-      background-color: #fff; /* 设置背景颜色 */
+      background-color: #fff; 
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-left: 20px;
     }
 
     h2 {
-      margin-top: 0;
+            margin-top: 0;
+            font-size: 24px; 
+            color: #333; 
+            text-align: center; 
+            padding: 10px; 
+            border-bottom: 2px solid #ffc107; 
+            background-color: #f9f9f9; 
+            border-radius: 5px; 
+        }
+
+    .control-system {
+        display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px 0;
     }
+
+    select {
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        width: 48%;
+        background-color: #fff;
+        font-size: 16px;
+    }
+
 
     table {
       width: 100%;
       border-collapse: collapse;
       margin-bottom: 20px;
     }
-
+    
     th, td {
       border: 1px solid #ccc;
       padding: 8px;
@@ -85,16 +116,23 @@
 
     th {
       background-color: #f9f9f9;
+      font-weight: bold;
+    }
+
+    tbody tr:hover {
+      background-color: #e9e9e9;
     }
 
     .log-section {
       margin-bottom: 40px;
     }
+
+    
   </style>
 </head>
 <body>
   <header>
-    <img src="https://via.placeholder.com/200x50" alt="Logo">
+    <img src="https://th.bing.com/th/id/OIP.idQ_TWQMOqLuugYYon4R8gAAAA?w=455&h=455&rs=1&pid=ImgDetMain" alt="Logo">
   </header>
 
   <div class="container">
@@ -105,53 +143,52 @@
         <li><a href="/log/faceandtemp">房间信息</a></li>
       </ul>
     </div>
+
     <div class="content">
       <div class="log-section">
-        <h2>温湿度日志</h2>
+        <h2>设备清单</h2>
+        <!-- 控制系统-->
+        <div class = 'control-system'>
+            <form id = "control-form" action="/control/device" method="post">
+
+                <select name="DeviceId" id="device-select">
+                    <option value="">选择设备</option>
+                    {% for data in datas %}
+                        <option value="{{ data.id }}">{{ data.DeviceName }}</option> <!-- 使用正确的模板语法 -->
+                    {% endfor %}
+                </select>
+
+                <select name="status" id = "action-select">
+                    <option value="">选择操作</option>
+                    <option value="1">开</option>
+                    <option value="0">关</option>
+                </select>
+
+                <button type="submit" >提交</button>
+            </form>
+        </div>
+
         <table id="temperature-humidity-log">
           <thead>
             <tr>
-              <th>时间</th>
-              <th>温度 (°C)</th>
-              <th>湿度 (%)</th>
+              <th>设备id</th>
+              <th>设备名称</th>
             </tr>
           </thead>
           <tbody>
-            {% for log in tem_logs %}
+            {% for data in datas %}
               <tr>
-                <td>{{ log.time }}</td>
-                <td>{{ log.temperature }}</td>
-                <td>{{ log.humidity }}</td>
+                <td>{{ data.id }}</td>
+                <td>{{ data.DeviceName}}</td>
               </tr>
               {% endfor %}
           </tbody>
         </table>
+    
       </div>
 
-      <div class="log-section">
-        <h2>人脸识别日志</h2>
-        <table id="face-recognition-log">
-          <thead>
-            <tr>
-              <th>姓名</th>
-              <th>日期</th>
-              <th>识别结果</th>
-            </tr>
-          </thead>
-          <tbody>
-            {%  for log in face_logs %}
-              <tr>
-                <td>{{ log.name }}</td>
-                <td>{{ log.time }}</td>
-                <td>{{ log.result }}</td>
-              </tr>
-            {%  endfor %}
-          </tbody>
-        </table>
-      </div>
     </div>
   </div>
-
 
 </body>
 </html>
