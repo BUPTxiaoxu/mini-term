@@ -174,10 +174,11 @@ def addface(request):
             image.save(image_io, format='JPEG')  
             image_io.seek(0)  
             
+           
             fs = FileSystemStorage()
             filename = f"{name}.jpg"  
             file_url = fs.save(filename, ContentFile(image_io.read()))  
-            
+            #此时获得的url是经过编码的，到时候需要解码
             accesspeople = AccessPeople.objects.create(name=name, imageurl=fs.url(file_url))
             return JsonResponse({'status': '200',
                                 'message': '上传成功',
